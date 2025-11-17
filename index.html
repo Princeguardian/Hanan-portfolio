@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photojournalist Portfolio - Muhammad Hanan AK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #e5e5e5; /* Light text */
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4ac6e; /* Muted amber */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c09b60;
+        }
+
+        /* Fade-in on scroll */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Swiper Pagination */
+        .swiper-pagination-bullet {
+            background-color: #a3a3a3; /* Muted light gray */
+            opacity: 0.7;
+            width: 10px;
+            height: 10px;
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #d4ac6e; /* Muted amber */
+            opacity: 1;
+        }
+
+        /* Gallery Grayscale Effect */
+        .swiper-slide img {
+            filter: grayscale(100%); /* Grayscale feel */
+            transition: all 0.5s ease-in-out;
+        }
+        .swiper-slide:hover img {
+            filter: grayscale(0%); /* Full color on hover */
+            transform: scale(1.05);
+        }
+        .swiper-slide .overlay-title {
+            position: absolute;
+            bottom: -100%; /* Start hidden */
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0) 100%);
+            padding: 2.5rem 1.5rem 1.5rem;
+            transition: bottom 0.4s ease-in-out;
+        }
+        .swiper-slide:hover .overlay-title {
+            bottom: 0; /* Slide in on hover */
+        }
+
+        /* Separator Style */
+        .separator {
+            width: 80px;
+            height: 2px;
+            background-color: #d4ac6e; /* Muted amber */
+            margin: 24px auto;
+        }
+
+        /* Button Style for Dark Mode */
+        .btn-vintage {
+            border: 2px solid #d4ac6e;
+            color: #d4ac6e;
+            padding: 10px 24px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-vintage:hover {
+            background-color: #d4ac6e;
+            color: #121212; /* Dark text on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-vintage-solid {
+            background-color: #d4ac6e;
+            color: #121212; /* Dark text */
+            border: 2px solid #d4ac6e;
+            padding: 10px 24px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-vintage-solid:hover {
+            background-color: #c09b60;
+            border-color: #c09b60;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* About Me Profile Image Animation */
+        .profile-img {
+            filter: grayscale(100%);
+            transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .profile-img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'vintage-bg': '#121212',
+                        'vintage-text': '#e5e5e5',
+                        'vintage-accent': {
+                            'light': '#e6c69c',
+                            'DEFAULT': '#d4ac6e',
+                            'dark': '#c09b60',
+                        },
+                        'vintage-secondary': '#a3a3a3', // Muted light gray
+                        'vintage-section': '#1f1f1f', // Dark section bg
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-vintage-bg text-vintage-text antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full">
+        <nav class="bg-vintage-bg/80 backdrop-blur-lg shadow-sm shadow-black/10">
+            <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex-shrink-0">
+                        <a href="#hero" class="page-nav text-xl font-bold font-serif text-vintage-text tracking-widest">
+                            MH
+                        </a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="#hero" class="page-nav text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">Home</a>
+                            <a href="#galleries" class="page-nav text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">Galleries</a>
+                            <a href="#about" class="page-nav text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">About</a>
+                            <a href="#experience" id="nav-exp-link" class="cursor-pointer text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">Experience</a>
+                            <a href="#contact" class="page-nav text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+        <!-- Main Page Content (Hero, Galleries, About, Contact) -->
+        <div id="page-main">
+            <!-- Hero Section -->
+            <section id="hero" class="h-[85vh] flex items-center justify-center text-center">
+                <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 fade-in-on-scroll">
+                    <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-extrabold text-vintage-text leading-tight transition-colors duration-300 hover:text-vintage-accent-dark">
+                        Muhammad Hanan AK
+                    </h1>
+                    <p class="mt-6 text-xl md:text-2xl text-vintage-secondary font-light leading-relaxed">
+                        Documenting Humanity, One Frame at a Time.
+                    </p>
+                    <div class="separator"></div>
+                    <a href="#galleries" class="btn-vintage inline-block">
+                        View My Work
+                    </a>
+                </div>
+            </section>
+
+            <!-- Galleries Section -->
+            <section id="galleries" class="py-20 sm:py-24 bg-vintage-section fade-in-on-scroll">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl sm:text-5xl font-bold font-serif text-center text-vintage-text mb-4">
+                        Featured Work
+                    </h2>
+                    <div class="separator mb-12"></div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex justify-center flex-wrap gap-3 sm:gap-4 mb-12">
+                        <button class="filter-btn btn-vintage-solid" data-filter="all">All</button>
+                        <button class="filter-btn btn-vintage" data-filter="portraits">Portraits</button>
+                        <button class="filter-btn btn-vintage" data-filter="conflict">Conflict</button>
+                        <button class="filter-btn btn-vintage" data-filter="culture">Culture</button>
+                        <button class="filter-btn btn-vintage" data-filter="gear">Gear</button>
+                    </div>
+
+                    <!-- Swiper Slider -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="portraits">
+                                <img src="https://www.adobe.com/in/creativecloud/photography/discover/media_1ef314811c9047767c413767300d341fba38614ce.jpg?width=1200&format=pjpg&optimize=medium" alt="Portrait of a young man" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Faces of Resilience</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="conflict">
+                                <img src="https://www.befunky.com/images/wp/wp-2015-08-vintage-style-photography-before.jpg?auto=avif,webp&format=jpg&width=944" alt="Conflict scene" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Unsettled Borders</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="culture">
+                                <img src="https://oshiprint.in/image/cache/catalog/poster/new/mqp050-320x320w.jpeg.webp" alt="Cultural festival" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Vibrant Traditions</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="portraits">
+                                <img src="https://m.media-amazon.com/images/I/61Ji07Rp5SL._AC_UF894,1000_QL80_.jpg" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Wisdom's Gaze</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="culture">
+                                <img src="httpshttps://www.befunky.com/images/wp/wp-2015-08-vintage-style-photography-before.jpg?auto=avif,webp&format=jpg&width=944" alt="Street market scene" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Daily Life</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="conflict">
+                                <img src="https://www.befunky.com/images/wp/wp-2015-08-vintage-style-photography-before.jpg?auto=avif,webp&format=jpg&width=944" alt="Protest scene" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">Voices of Change</h3>
+                                </div>
+                            </div>
+                            <div class="swiper-slide group rounded-md overflow-hidden relative shadow-lg cursor-pointer" data-category="gear">
+                                <img src="https://www.befunky.com/images/wp/wp-2015-08-vintage-style-photography-before.jpg?auto=avif,webp&format=jpg&width=944" alt="Vintage camera" class="w-full h-80 object-cover">
+                                <div class="overlay-title">
+                                    <h3 class="text-lg font-semibold text-white font-serif">The Tools</h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination mt-8 relative"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="bg-vintage-bg py-20 sm:py-24 fade-in-on-scroll">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+                        <div>
+                            <!-- Profile Image with Animation -->
+                            <img src="https://portraits.julianance.com.au/wp-content/uploads/2022/10/Model-Portfolio-Photography-Julia-Nance-Portraits-Yves7-683x1024.jpg" alt="Photo of Muhammad Hanan AK" class="rounded-md shadow-2xl w-full h-[600px] object-cover object-top profile-img">
+                        </div>
+                        <div>
+                            <h2 class="text-4xl sm:text-5xl font-bold font-serif text-vintage-text mb-6">
+                                About Me
+                            </h2>
+                            <p class="text-lg text-vintage-secondary leading-relaxed mb-4">
+                                I am an independent photojournalist based in [Your City], specializing in long-form documentary projects, portraiture, and editorial assignments. 
+                            </p>
+                            <p class="text-lg text-vintage-secondary leading-relaxed mb-4">
+                                My work focuses on capturing the nuances of human experience, exploring themes of identity, social justice, and cultural change. I believe in the power of visual storytelling to bridge divides and foster empathy.
+                            </p>
+                            <p class="text-lg text-vintage-secondary leading-relaxed mb-8">
+                                My photos have been published in [Publication A], [Publication B], and [Publication C].
+                            </p>
+                            <a href="#contact" class="btn-vintage-solid inline-block page-nav">
+                                Get In Touch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="contact" class="bg-vintage-bg py-20 sm:py-24 fade-in-on-scroll">
+                <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                    <div class="border-t border-b border-vintage-accent/50 py-16 text-center">
+                        <h2 class="text-4xl sm:text-5xl font-bold font-serif text-vintage-text mb-8">
+                            Let's Create Together
+                        </h2>
+                        <p class="text-xl text-vintage-secondary leading-relaxed mb-10 max-w-2xl mx-auto">
+                            I am available for compelling stories, challenging assignments, and creative collaborations worldwide.
+                        </p>
+                        <a href="mailto:your.email@example.com" class="btn-vintage-solid inline-block text-lg px-12 py-5 font-semibold">
+                            Send Me an Email
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Work Experience "Page" (Hidden by default) -->
+        <div id="page-experience" class="hidden">
+            <section class="bg-vintage-section py-20 sm:py-24 min-h-screen">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl sm:text-5xl font-bold font-serif text-center text-vintage-text mb-4">
+                        Work Experience
+                    </h2>
+                    <div class="separator mb-12"></div>
+                    
+                    <div class="max-w-4xl mx-auto space-y-12">
+                        
+                        <!-- Experience 1 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">Staff Photojournalist</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">2020 - Present</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">[Your Top Publication]</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    Covered breaking news, international assignments, and long-form documentary stories. Led visual direction for special reports on [Topic A] and [Topic B].
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Experience 2 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">Freelance Photojournalist</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">2017 - 2020</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">Various Clients</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    Assignments for clients including [Publication A], [Magazine B], and [NGO C]. Focused on portraiture and cultural stories from Southeast Asia and the Middle East.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Experience 3 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">Intern Photographer</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">2016 - 2017</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">[Local News Agency]</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    Assisted senior photographers on daily assignments, managed digital archives, and contributed to local news coverage.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Experience 4 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">[New Job Title 4]</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">[Date Range]</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">[Company Name]</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    [Add a description of the job responsibilities and achievements here.]
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience 5 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">[New Job Title 5]</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">[Date Range]</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">[Company Name]</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    [Add a description of the job responsibilities and achievements here.]
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience 6 -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <h3 class="text-xl font-serif font-bold text-vintage-text">[New Job Title 6]</h3>
+                                <p class="text-sm text-vintage-secondary tracking-wide mt-1">[Date Range]</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-vintage-text mb-2">[Company Name]</h4>
+                                <p class="text-vintage-secondary leading-relaxed">
+                                    [Add a description of the job responsibilities and achievements here.]
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Back Button -->
+                    <div class="text-center mt-20">
+                        <button id="back-to-main" class="btn-vintage">
+                            &larr; Back to Portfolio
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-vintage-section border-t border-white/10">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex justify-between items-center flex-col sm:flex-row">
+                <p class="text-sm text-vintage-secondary">
+                    &copy; 2025 Muhammad Hanan AK. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <!-- Social Icon 1 -->
+                    <a href="#" class="text-vintage-secondary hover:text-vintage-accent-dark transition-colors">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.149-4.771-1.664-4.919-4.919-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.148-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.604c-3.141 0-3.499.011-4.717.068-2.665.122-3.635 1.122-3.755 3.755-.057 1.218-.068 1.575-.068 4.717s.011 3.499.068 4.717c.12 2.633 1.09 3.635 3.755 3.755 1.218.057 1.575.068 4.717.068s3.499-.011 4.717-.068c2.665-.12 3.635-1.09 3.755-3.755.057-1.218.068-1.575.068-4.717s-.011-3.499-.068-4.717c-.12-2.633-1.09-3.635-3.755-3.755C15.499 3.778 15.141 3.767 12 3.767zM12 6.819c-2.84 0-5.158 2.318-5.158 5.158s2.318 5.158 5.158 5.158 5.158-2.318 5.158-5.158-2.318-5.158-5.158-5.158zM12 15.4c-1.878 0-3.401-1.523-3.401-3.401s1.523-3.401 3.401-3.401 3.401 1.523 3.401 3.401-1.523 3.401-3.401 3.401zm6.364-7.55c-.53 0-.96.43-.96.96s.43.96.96.96.96-.43.96-.96-.43-.96-.96-.96z" /></svg>
+                    </a>
+                    <!-- Social Icon 2 -->
+                    <a href="#" class="text-vintage-secondary hover:text-vintage-accent-dark transition-colors">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <button id="closeModal" class="absolute top-6 right-6 text-white text-5xl z-70 opacity-70 hover:opacity-100 transition-opacity">&times;</button>
+        <img id="modalImage" src="" alt="Full-size view" class="max-w-full max-h-full rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+    </div>
+
+    <!-- Swiper.js JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Main JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // --- Page Navigation Logic ---
+            const pageMain = document.getElementById('page-main');
+            const pageExp = document.getElementById('page-experience');
+            const navExpLink = document.getElementById('nav-exp-link');
+            const backBtn = document.getElementById('back-to-main');
+            const pageNavLinks = document.querySelectorAll('.page-nav');
+
+            const showMainPage = () => {
+                pageMain.classList.remove('hidden');
+                pageExp.classList.add('hidden');
+                window.scrollTo(0, 0); 
+            };
+
+            const showExpPage = () => {
+                pageMain.classList.add('hidden');
+                pageExp.classList.remove('hidden');
+                window.scrollTo(0, 0); 
+            };
+
+            navExpLink.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                showExpPage();
+            });
+
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainPage();
+            });
+
+            pageNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (pageExp.classList.contains('hidden') === false) {
+                        showMainPage();
+                    }
+                });
+            });
+
+            // --- Image Modal Logic ---
+            const openModal = (imgSrc) => {
+                modalImage.src = imgSrc;
+                modal.classList.remove('hidden');
+                void modal.offsetWidth; 
+                modal.classList.add('opacity-100');
+                modalImage.classList.add('scale-100');
+            };
+
+            const closeModalFunc = () => {
+                modal.classList.remove('opacity-100');
+                modalImage.classList.remove('scale-100');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modalImage.src = ''; // Clear src
+                }, 300); 
+            };
+            
+            closeModal.addEventListener('click', closeModalFunc);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModalFunc();
+                }
+            });
+
+            // --- Filterable Swiper Logic ---
+            let mySwiper = null;
+            const swiperWrapper = document.querySelector('.swiper-wrapper');
+            // Store all slides' outer HTML
+            const allSlidesHTML = Array.from(swiperWrapper.querySelectorAll('.swiper-slide')).map(slide => slide.outerHTML);
+
+            const swiperOptions = {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    1024: { slidesPerView: 3, spaceBetween: 30 },
+                },
+            };
+
+            // Function to add modal listeners to current slides
+            const addModalListenersToSlides = () => {
+                document.querySelectorAll('.swiper-slide').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const imgSrc = item.querySelector('img').src;
+                        openModal(imgSrc);
+                    });
+                });
+            };
+
+            // Initialize Swiper
+            const initSwiper = () => {
+                mySwiper = new Swiper(".mySwiper", swiperOptions);
+                addModalListenersToSlides(); // Add listeners to the new slides
+            };
+            
+            initSwiper(); // Initial load
+
+            // Filter Button Clicks
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.getAttribute('data-filter');
+
+                    // Style buttons
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('btn-vintage-solid');
+                        btn.classList.add('btn-vintage');
+                    });
+                    button.classList.add('btn-vintage-solid');
+                    button.classList.remove('btn-vintage');
+
+                    // Destroy old Swiper
+                    if (mySwiper) {
+                        mySwiper.destroy(true, true);
+                        mySwiper = null;
+                    }
+
+                    // Filter slides based on the stored HTML
+                    const filteredSlides = (filter === 'all') 
+                        ? allSlidesHTML 
+                        : allSlidesHTML.filter(slideHTML => slideHTML.includes(`data-category="${filter}"`));
+
+                    // Add filtered slides back to wrapper
+                    swiperWrapper.innerHTML = filteredSlides.join('');
+
+                    // Re-initialize Swiper
+                    initSwiper();
+                });
+            });
+
+            // --- Fade-in on Scroll Logic ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // *** FIXED TYPO HERE ***
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                threshold: 0.1 
+            });
+
+            const sections = document.querySelectorAll('.fade-in-on-scroll');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+        });
+    </script>
+
+</body>
+</html>
