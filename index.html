@@ -187,6 +187,23 @@
                             <a href="#contact" class="page-nav text-vintage-text hover:text-vintage-accent-dark text-sm font-medium tracking-wide transition-colors">Contact</a>
                         </div>
                     </div>
+                    <!-- Hamburger button (visible on mobile) -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-vintage-text hover:text-vintage-accent-dark focus:outline-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#hero" class="page-nav block px-3 py-2 rounded-md text-base font-medium text-vintage-text hover:text-vintage-accent-dark">Home</a>
+                    <a href="#galleries" class="page-nav block px-3 py-2 rounded-md text-base font-medium text-vintage-text hover:text-vintage-accent-dark">Galleries</a>
+                    <a href="#about" class="page-nav block px-3 py-2 rounded-md text-base font-medium text-vintage-text hover:text-vintage-accent-dark">About</a>
+                    <a href="#experience" id="mobile-nav-exp-link" class="cursor-pointer block px-3 py-2 rounded-md text-base font-medium text-vintage-text hover:text-vintage-accent-dark">Experience</a>
+                    <a href="#contact" class="page-nav block px-3 py-2 rounded-md text-base font-medium text-vintage-text hover:text-vintage-accent-dark">Contact</a>
                 </div>
             </div>
         </nav>
@@ -484,6 +501,11 @@
             const navExpLink = document.getElementById('nav-exp-link');
             const backBtn = document.getElementById('back-to-main');
             const pageNavLinks = document.querySelectorAll('.page-nav');
+            // Mobile Menu Elements
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavExpLink = document.getElementById('mobile-nav-exp-link');
+            const mobilePageNavLinks = document.querySelectorAll('#mobile-menu .page-nav');
 
             const showMainPage = () => {
                 pageMain.classList.remove('hidden');
@@ -514,6 +536,31 @@
                     }
                 });
             });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Handle mobile "Experience" link click
+            mobileNavExpLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showExpPage();
+                mobileMenu.classList.add('hidden'); // Close menu
+            });
+
+            // Handle other mobile nav links (Home, Galleries, etc.)
+            mobilePageNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // If on exp page, switch to main
+                    if (pageExp.classList.contains('hidden') === false) {
+                        showMainPage();
+                    }
+                    mobileMenu.classList.add('hidden'); // Close menu
+                    // Let the default hash link behavior scroll
+                });
+            });
+
 
             // --- Image Modal Logic ---
             const openModal = (imgSrc) => {
